@@ -1,2 +1,35 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div id="AmazonLoginButton"></div>
+<script type='text/javascript'>
+    window.onAmazonLoginReady = function () {
+        amazon.Login.setClientId('amzn1.application-oa2-client.542de3a9ff244dc1892fd6ed9f69be71');
+    };
+    window.onAmazonPaymentsReady = function() {
+        showButton();
+    };
+</script>
+
+<script type='text/javascript' src='https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js'></script>
+
+
+<script type='text/javascript'>
+    function showButton() {
+        var authRequest;
+        OffAmazonPayments.Button("AmazonPayButton", "A35PN1K75NBAFR", {
+            type: "LwA",
+            color: "Gold",
+            size: "medium",
+            authorization: function() {
+                loginOptions = { scope: "profile payments:widget payments:shipping_address", popup: true };
+                authRequest = amazon.Login.authorize (loginOptions, "Widgets.jsp");
+            },
+            onError: function(error) {
+                alert(error.getErrorMessage());
+            }
+        });
+    };
+
+</script>
+

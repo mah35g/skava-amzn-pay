@@ -1,0 +1,40 @@
+<div id="addressBookWidgetDiv" style="width:400px; height:240px;"></div>
+<div id="walletWidgetDiv" style="width:400px; height:240px;"></div>
+
+<script type='text/javascript'>
+    window.onAmazonLoginReady = function () {
+        amazon.Login.setClientId('amzn1.application-oa2-client.542de3a9ff244dc1892fd6ed9f69be71');
+    };
+</script>
+
+<script type='text/javascript' src='https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js'></script>
+
+<script type="text/javascript">
+    new OffAmazonPayments.Widgets.AddressBook({
+        sellerId: 'MERCHANT_ID',
+        onOrderReferenceCreate: function (orderReference) {
+           orderReferenceId = orderReference.getAmazonOrderReferenceId();
+        },
+        onAddressSelect: function () {
+            // do stuff here like recalculate tax and/or shipping
+        },
+        design: {
+            designMode: 'responsive'
+        },
+        onError: function (error) {
+            // your error handling code
+        }
+    }).bind("addressBookWidgetDiv");
+
+    new OffAmazonPayments.Widgets.Wallet({
+        sellerId: 'MERCHANT_ID',
+        onPaymentSelect: function () {
+        },
+        design: {
+            designMode: 'responsive'
+        },
+        onError: function (error) {
+            // your error handling code
+        }
+    }).bind("walletWidgetDiv");
+</script>
